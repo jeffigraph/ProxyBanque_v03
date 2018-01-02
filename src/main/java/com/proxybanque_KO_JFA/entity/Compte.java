@@ -21,15 +21,7 @@ public abstract class Compte {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id_compte")
-	private String idCompte;
-
-	public String getIdCompte() {
-		return idCompte;
-	}
-
-	public void setIdCompte(String idCompte) {
-		this.idCompte = idCompte;
-	}
+	private long idCompte;
 
 	private String numeroCompte;
 
@@ -94,6 +86,14 @@ public abstract class Compte {
 	 */
 	public String getNumeroCompte() {
 		return numeroCompte;
+	}
+
+	public long getIdCompte() {
+		return idCompte;
+	}
+
+	public void setIdCompte(long idCompte) {
+		this.idCompte = idCompte;
 	}
 
 	/**

@@ -23,12 +23,6 @@ import javax.persistence.Table;
 @Table(name = "client")
 public class Client {
 
-	// Attributs DB aide a preparation des requetes
-	// public static final String TABLENAME = "client";
-	// public static final String KEYNAME = "idclient";
-	// public static final String TABLECOLUMNS = "idclient, nom, prenom, adresse,
-	// ville, codepostal, telephone";
-	// public static final String ALLCOLUMNPARAMS = "?,?,?,?,?,?,?";
 
 	public static final int PARTICULIER = 1;
 	public static final int ENTREPRISE = 2;

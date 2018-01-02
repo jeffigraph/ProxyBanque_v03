@@ -76,7 +76,7 @@ public class TestMain {
 			 //CarteBancaire cb = daoCarteB.getById(cb1.getNumeroCarte());
 
 			daoCompte.add(cc);
-			daoClient.add(clt);
+			//daoClient.add(clt);
 			// daoClient.add(clt2);
 
 			// daoConseiller.add(conseiller);
