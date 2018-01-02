@@ -25,7 +25,7 @@ public class DaoClientJPA implements IDaoClient {
 		EntityTransaction txn = em.getTransaction();
 		try {
 			txn.begin();
-				em.merge(client);
+				em.persist(client);
 
 			txn.commit();
 		} catch (Exception e) {

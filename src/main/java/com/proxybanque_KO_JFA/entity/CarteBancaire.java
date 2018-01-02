@@ -1,7 +1,10 @@
 package com.proxybanque_KO_JFA.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -19,6 +22,10 @@ public class CarteBancaire {
 	private String numeroCarte;
 
 	private String typeCarte;
+	
+	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+	@JoinColumn(name = "id_compte")
+	private CompteCourant compteCourant;
 
 	/**
 	 * 
@@ -107,6 +114,14 @@ public class CarteBancaire {
 	@Override
 	public String toString() {
 		return "CarteBancaire [NUMERO_CARTE=" + numeroCarte + ", TYPE_CARTE=" + typeCarte + "]";
+	}
+
+	public CompteCourant getCompteCourant() {
+		return compteCourant;
+	}
+
+	public void setCompteCourant(CompteCourant compteCourant) {
+		this.compteCourant = compteCourant;
 	}
 
 }

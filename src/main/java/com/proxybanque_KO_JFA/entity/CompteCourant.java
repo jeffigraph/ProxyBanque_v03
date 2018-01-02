@@ -2,7 +2,6 @@ package com.proxybanque_KO_JFA.entity;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
@@ -15,7 +14,7 @@ import javax.persistence.OneToOne;
  */
 @Entity
 public class CompteCourant extends Compte {
-
+	
 	/**
 	 * 
 	 */
@@ -32,15 +31,19 @@ public class CompteCourant extends Compte {
 	 * la carte Bancaire associee au compte, defini seuelment si le client en
 	 * possede une, sinon null.
 	 */
-	@OneToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
-	@JoinColumn(name="numero_carte")
+	@OneToOne(mappedBy="compteCourant", cascade = { CascadeType.PERSIST })
+	@JoinColumn(name = "numero_carte")
 	private CarteBancaire carteBancaire;
+
+	@OneToOne(cascade = { CascadeType.PERSIST})
+	@JoinColumn(name = "id_client")
+	private Client clientCourant;
 
 	/**
 	 * le montant du decouvert autorise
 	 */
-	// private Decouvert autorisationDecouvert;
 	private double decouvertAutorise;
+	
 	/*
 	 * public CompteCourant(CarteBancaire carteBancaire, int decouvertAutorise, int
 	 * numeroCompte, Date dateOuverture, String type) { super(numeroCompte,
@@ -97,6 +100,14 @@ public class CompteCourant extends Compte {
 
 	public void setDecouvertAutorise(double decouvertAutorise) {
 		this.decouvertAutorise = decouvertAutorise;
+	}
+
+	public Client getClient() {
+		return clientCourant;
+	}
+
+	public void setClient(Client client) {
+		this.clientCourant = client;
 	}
 
 }

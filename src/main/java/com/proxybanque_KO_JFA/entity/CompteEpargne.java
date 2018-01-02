@@ -11,9 +11,13 @@ public class CompteEpargne extends Compte {
 
 	public static final String TYPE_COMPTE = "epargne";
 
-	@OneToOne(fetch = FetchType.EAGER, cascade= {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
-	@JoinColumn(name="taux_id")
+	@OneToOne(cascade = { CascadeType.PERSIST})
+	@JoinColumn(name = "taux_id")
 	private Taux tauxRemuneration;
+
+	@OneToOne(cascade = { CascadeType.PERSIST})
+	@JoinColumn(name = "id_client")
+	private Client client;
 
 	/**
 	 * 
@@ -37,7 +41,8 @@ public class CompteEpargne extends Compte {
 	 * @param dateOuverture
 	 * @param type
 	 */
-	public CompteEpargne(String numeroCompte, Double solde, String dateOuverture, String typeClient, String typeCompte) {
+	public CompteEpargne(String numeroCompte, Double solde, String dateOuverture, String typeClient,
+			String typeCompte) {
 		super(numeroCompte, solde, dateOuverture, typeClient, typeCompte);
 	}
 
@@ -74,6 +79,14 @@ public class CompteEpargne extends Compte {
 	@Override
 	public String toString() {
 		return "CompteEpargne [tauxRemuneration=" + tauxRemuneration + "]";
+	}
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
 	}
 
 }

@@ -1,5 +1,8 @@
 package com.proxybanque_KO_JFA.entity;
 
+import java.util.jar.Attributes.Name;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -25,6 +28,7 @@ public abstract class Compte {
 	//
 
 	@Id
+	@Column(name="id_compte")
 	private String numeroCompte;
 
 	private Double solde;

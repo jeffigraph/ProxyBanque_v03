@@ -26,10 +26,20 @@ public class DaoCarteBancaireJPA implements IDaoCarteBancaire {
 		try {
 			txn.begin();
 
+			// TypedQuery<CarteBancaire> query = em.createQuery("from CarteBancaire where
+			// numeroCarte = " + cb.getNumeroCarte(),
+			// CarteBancaire.class);
+			// List<CarteBancaire> resultList = query.getResultList();
+			// if (resultList != null) {
+			// if (resultList.size() == 0) {
 			em.persist(cb);
+			// }
+			// }
 
 			txn.commit();
-		} catch (Exception e) {
+		} catch (
+
+		Exception e) {
 			if (txn != null) {
 				txn.rollback();
 			}

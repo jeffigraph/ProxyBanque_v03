@@ -1,11 +1,14 @@
 package com.proxybanque_KO_JFA.entity;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -17,8 +20,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(
-		name = "client")
+@Table(name = "client")
 public class Client {
 
 	// Attributs DB aide a preparation des requetes
@@ -32,8 +34,8 @@ public class Client {
 	public static final int ENTREPRISE = 2;
 
 	@Id
-	@GeneratedValue(
-			strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="id_client")
 	private long idClient;
 
 	private String nom;
@@ -48,15 +50,15 @@ public class Client {
 
 	private String telephone;
 
-	@OneToOne(
-			cascade = { CascadeType.PERSIST, CascadeType.MERGE },
-			fetch = FetchType.EAGER)
+	@OneToOne(mappedBy="clientCourant", cascade = { CascadeType.PERSIST })
 	private CompteCourant compteCourant;
 
-	@OneToOne(
-			cascade = { CascadeType.PERSIST, CascadeType.MERGE },
-			fetch = FetchType.EAGER)
+	@OneToOne(mappedBy="client", cascade = { CascadeType.PERSIST })
 	private CompteEpargne compteEpargne;
+
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+	@JoinColumn(name = "id_conseiller")
+	private Conseiller conseiller;
 
 	/**
 	 * 
@@ -288,6 +290,14 @@ public class Client {
 			return compteEpargne;
 		else
 			return null;
+	}
+
+	public Conseiller getConseiller() {
+		return conseiller;
+	}
+
+	public void setConseiller(Conseiller conseiller) {
+		this.conseiller = conseiller;
 	}
 
 }

@@ -1,9 +1,12 @@
 package com.proxybanque_KO_JFA.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 /**
  * Decrit le taux de remuneration
@@ -19,6 +22,10 @@ public class Taux {
 	private long idTaux;
 
 	private Double taux;
+	
+	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+	@JoinColumn(name = "id_compte")
+	private CompteEpargne compteEpargne;
 
 	/**
 	 * 

@@ -25,35 +25,45 @@ public class TestMain {
 		CarteBancaire cb1 = new CarteBancaire();
 		cb1.setNumeroCarte("5654564165");
 		cb1.setTypeCarte(CarteBancaire.VISA_ELECTRON);
-		System.out.println(cb1);
+		// System.out.println(cb1);
 
 		CompteCourant cc = new CompteCourant();
 		cc.setNumeroCompte("5463454sds45445");
-		cc.setCarteBancaire(cb1);
 		cc.setDateOuverture("2012-09-24");
 		cc.setSolde(100.25);
 		cc.setTypeClient(Compte.PARTICULIER);
 		cc.setTypeCompte(Compte.COURANT);
 		cc.setDecouvertAutorise(Decouvert.DECOUVERT_PARTICULIER);
 
-		System.out.println(cc);
+		cc.setCarteBancaire(cb1);
+		cb1.setCompteCourant(cc);
+
+		// System.out.println(cc);
 
 		Client clt = new Client(1, "Einstein", "Albert", "23 rue des Canards Sauvages", "Lille", 20001, "+33012598774",
 				null, null);
-		clt.setCompteCourant(cc);
-		System.out.println(clt);
+//		clt.setCompteCourant(cc);
+//		cc.setClient(clt);
+
+		// System.out.println(clt);
 
 		Client clt2 = new Client(2, "Marx", "Karl", "12 rue des Anges Rouges", "La Havane", 45201, "+29454541", null,
 				null);
-		System.out.println(clt2);
+		// System.out.println(clt2);
 
-		List<Client> lstClients = new ArrayList<>();
-		lstClients.add(clt);
-		lstClients.add(clt2);
+		// Conseiller conseiller = new Conseiller(1, "Loiseaux", "Michel",
+		// Conseiller.TYPECONSEILLER, null);
+		// conseiller.setLogin("michel");
+		// conseiller.setPassword("test");
 
-		Conseiller conseiller = new Conseiller(1, "Loiseaux", "Michel", Conseiller.TYPECONSEILLER, lstClients);
-		conseiller.setLogin("michel");
-		conseiller.setPassword("test");
+		// clt.setConseiller(conseiller);
+		// clt2.setConseiller(conseiller);
+
+		// List<Client> lstClients = new ArrayList<>();
+		// lstClients.add(clt);
+		// lstClients.add(clt2);
+
+		// conseiller.setPortefeuilleClients(lstClients);
 
 		IDaoCarteBancaire daoCarteB = new DaoCarteBancaireJPA();
 		IDaoCompte daoCompte = new DaoCompteJPA();
@@ -61,28 +71,27 @@ public class TestMain {
 
 		IDaoConseiller daoConseiller = new DaoConseillerJPA();
 		try {
-			 daoCarteB.add(cb1);
-			//CarteBancaire cb = daoCarteB.getById(cb1.getNumeroCarte());
+			daoCarteB.add(cb1);
+			 //CarteBancaire cb = daoCarteB.getById(cb1.getNumeroCarte());
 
-			 daoCompte.add(cc);
-			 daoClient.add(clt);
-			 daoClient.add(clt2);
+			daoCompte.add(cc);
+			daoClient.add(clt);
+			// daoClient.add(clt2);
 
-			 daoConseiller.add(conseiller);
+			// daoConseiller.add(conseiller);
 
-//			CarteBancaire cb2 = daoCarteB.getById(cb1.getNumeroCarte());
-//			System.out.println(cb2);
+			// CarteBancaire cb2 = daoCarteB.getById(cb1.getNumeroCarte());
+			// System.out.println(cb2);
 
-			List<Compte> lstCompte = daoCompte.getAll();
-			for (Compte compte : lstCompte) {
-				System.out.println(compte);
-			}
-			
+			// List<Compte> lstCompte = daoCompte.getAll();
+			// for (Compte compte : lstCompte) {
+			// System.out.println(compte);
+			// }
 
-			List<Conseiller> lstCons = daoConseiller.getAll();
-			for (Conseiller cons : lstCons) {
-				System.out.println(cons);
-			}
+			// List<Conseiller> lstCons = daoConseiller.getAll();
+			// for (Conseiller cons : lstCons) {
+			// System.out.println(cons);
+			// }
 
 		} catch (DaoPersistanceException e) {
 			e.printStackTrace();

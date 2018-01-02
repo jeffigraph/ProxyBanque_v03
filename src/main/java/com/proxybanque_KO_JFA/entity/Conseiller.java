@@ -3,6 +3,7 @@ package com.proxybanque_KO_JFA.entity;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -20,8 +21,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(
-		name = "conseiller")
+@Table(name = "conseiller")
 public class Conseiller {
 
 	// Attributs DB aide a preparation des requetes
@@ -31,8 +31,8 @@ public class Conseiller {
 	private int MAX_CLIENT = 10;
 
 	@Id
-	@GeneratedValue(
-			strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id_conseiller")
 	private long idConseiller;
 
 	private String nom;
@@ -44,9 +44,7 @@ public class Conseiller {
 	private String login;
 	private String password;
 
-	@OneToMany(
-			cascade = { CascadeType.PERSIST, CascadeType.MERGE },
-			fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "conseiller", cascade = { CascadeType.PERSIST })
 	private List<Client> portefeuilleClients;
 
 	/**

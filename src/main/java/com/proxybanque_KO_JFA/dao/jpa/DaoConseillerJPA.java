@@ -25,7 +25,7 @@ public class DaoConseillerJPA implements IDaoConseiller {
 		EntityTransaction txn = em.getTransaction();
 		try {
 			txn.begin();
-			em.merge(conseiller);
+			em.persist(conseiller);
 
 			txn.commit();
 		} catch (Exception e) {
