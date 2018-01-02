@@ -14,7 +14,7 @@ import javax.persistence.OneToOne;
  */
 @Entity
 public class CompteCourant extends Compte {
-	
+
 	/**
 	 * 
 	 */
@@ -31,11 +31,11 @@ public class CompteCourant extends Compte {
 	 * la carte Bancaire associee au compte, defini seuelment si le client en
 	 * possede une, sinon null.
 	 */
-	@OneToOne(mappedBy="compteCourant", cascade = { CascadeType.PERSIST })
-	@JoinColumn(name = "numero_carte")
+	@OneToOne(mappedBy = "compteCourant", cascade = { CascadeType.PERSIST })
+	@JoinColumn(name = "id_carte")
 	private CarteBancaire carteBancaire;
 
-	@OneToOne(cascade = { CascadeType.PERSIST})
+	@OneToOne(cascade = { CascadeType.PERSIST })
 	@JoinColumn(name = "id_client")
 	private Client clientCourant;
 
@@ -43,7 +43,7 @@ public class CompteCourant extends Compte {
 	 * le montant du decouvert autorise
 	 */
 	private double decouvertAutorise;
-	
+
 	/*
 	 * public CompteCourant(CarteBancaire carteBancaire, int decouvertAutorise, int
 	 * numeroCompte, Date dateOuverture, String type) { super(numeroCompte,
@@ -71,6 +71,14 @@ public class CompteCourant extends Compte {
 	 */
 	public void setCarteBancaire(CarteBancaire carteBancaire) {
 		this.carteBancaire = carteBancaire;
+	}
+
+	public Client getClientCourant() {
+		return clientCourant;
+	}
+
+	public void setClientCourant(Client clientCourant) {
+		this.clientCourant = clientCourant;
 	}
 
 	/*

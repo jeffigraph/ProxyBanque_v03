@@ -1,9 +1,9 @@
 package com.proxybanque_KO_JFA.entity;
 
-import java.util.jar.Attributes.Name;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -15,20 +15,22 @@ import javax.persistence.InheritanceType;
  *
  */
 @Entity
-@Inheritance(
-		strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Compte {
 
-	// Attributs DB aide a preparation des requetes
-	// public static final String TABLENAME = "compte";
-	// public static final String KEYNAME = "numerocompte";
-	// public static final String TABLECOLUMNS = "numerocompte, dateouverture,
-	// solde, idtypeclient";
-	// public static final String ALLCOLUMNPARAMS = "?,?,?,?";
-	//
-
 	@Id
-	@Column(name="id_compte")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id_compte")
+	private String idCompte;
+
+	public String getIdCompte() {
+		return idCompte;
+	}
+
+	public void setIdCompte(String idCompte) {
+		this.idCompte = idCompte;
+	}
+
 	private String numeroCompte;
 
 	private Double solde;

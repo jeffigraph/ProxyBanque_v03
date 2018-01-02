@@ -1,7 +1,10 @@
 package com.proxybanque_KO_JFA.entity;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -19,6 +22,10 @@ public class CarteBancaire {
 	public static final String VISA_PREMIER = "visa premier";
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="id_carte")
+	private long idCarte;
+	
 	private String numeroCarte;
 
 	private String typeCarte;
@@ -42,6 +49,14 @@ public class CarteBancaire {
 		super();
 		this.numeroCarte = numeroCarte;
 		this.typeCarte = TYPE_CARTE;
+	}
+
+	public long getIdCarte() {
+		return idCarte;
+	}
+
+	public void setIdCarte(long idCarte) {
+		this.idCarte = idCarte;
 	}
 
 	/**

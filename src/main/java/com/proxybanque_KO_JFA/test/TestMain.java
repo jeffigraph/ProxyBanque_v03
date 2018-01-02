@@ -23,6 +23,7 @@ public class TestMain {
 
 	public static void main(String[] args) {
 		CarteBancaire cb1 = new CarteBancaire();
+		//cb1.setIdCarte(1L);
 		cb1.setNumeroCarte("5654564165");
 		cb1.setTypeCarte(CarteBancaire.VISA_ELECTRON);
 		// System.out.println(cb1);

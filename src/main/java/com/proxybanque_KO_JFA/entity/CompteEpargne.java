@@ -11,11 +11,11 @@ public class CompteEpargne extends Compte {
 
 	public static final String TYPE_COMPTE = "epargne";
 
-	@OneToOne(cascade = { CascadeType.PERSIST})
+	@OneToOne(cascade = { CascadeType.PERSIST })
 	@JoinColumn(name = "taux_id")
 	private Taux tauxRemuneration;
 
-	@OneToOne(cascade = { CascadeType.PERSIST})
+	@OneToOne(cascade = { CascadeType.PERSIST })
 	@JoinColumn(name = "id_client")
 	private Client client;
 
