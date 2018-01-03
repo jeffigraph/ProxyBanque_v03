@@ -14,8 +14,8 @@ import com.proxybanque_KO_JFA.entity.Client;
 import com.proxybanque_KO_JFA.services.ServiceEngine;
 
 /**
- * Affichage du details des informations du client 
- * et assure la mise a jour de ses informations
+ * Affichage du details des informations du client et assure la mise a jour de
+ * ses informations
  * 
  * Servlet implementation class ViewCompteClient
  */
@@ -39,11 +39,12 @@ public class ViewDetailsClientServlet extends HttpServlet {
 	}
 
 	/**
-	 * Recupere les informations du client dont l'id a ete recu en parametre de la requete
-	 * et renvoie le client en parametre de la requte de la page  d'affichage : "ViewDetailsClient.jsp" 
+	 * Recupere les informations du client dont l'id a ete recu en parametre de la
+	 * requete et renvoie le client en parametre de la requte de la page d'affichage
+	 * : "ViewDetailsClient.jsp"
 	 * 
-	 * Si aucun client n'est trouve, renvoie a une page d'erreur
-	 * Si la session n'est pas valide, renvoie a la page d'autentification
+	 * Si aucun client n'est trouve, renvoie a une page d'erreur Si la session n'est
+	 * pas valide, renvoie a la page d'autentification
 	 * 
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -83,7 +84,8 @@ public class ViewDetailsClientServlet extends HttpServlet {
 	}
 
 	/**
-	 * Gere le mise a jour des informations d'un client (hors gestion de ses comptes)
+	 * Gere le mise a jour des informations d'un client (hors gestion de ses
+	 * comptes)
 	 * 
 	 * Recupere les nouvelles valeurs frounies par la methode POST
 	 * 
@@ -132,18 +134,22 @@ public class ViewDetailsClientServlet extends HttpServlet {
 			if (telephone.equals(""))
 				telephone = clientOriginel.getTelephone();
 
-			Client clientModifie = new Client(nom, prenom, adresse, ville, codePostal, telephone, 
+			Client clientModifie = new Client(nom, prenom, adresse, ville, codePostal, telephone,
 					clientOriginel.getCompteCourant(), clientOriginel.getCompteEpargne());
 
 			try {
 				srvcEng.getServiceGestionClient().updateClient(clientModifie);
 				session.setAttribute("client", clientModifie);
-				
+
 				request.setAttribute("displayOK", true);
-				request.setAttribute("msg",	"Les donn&eacute;es de votre client ont bien &eacute;t&eacute; mises &agrave; jour");
+				request.setAttribute("msg",
+						"Les donn&eacute;es de votre client ont bien &eacute;t&eacute; mises &agrave; jour");
 				request.getRequestDispatcher("ViewDetailsClient.jsp").forward(request, response);
 			} catch (DaoPersistanceException ex) {
-				System.out.println("ViewDetailsClientServlet : doPost() : " + ex.getMessage());
+				ex.printStackTrace();
+				// System.out.println("ViewDetailsClientServlet : doPost() : " +
+				// ex.getMessage());
+
 				request.setAttribute("displayOK", false);
 				request.setAttribute("msg", "Les donn&eacute;es de votre client : " + clientModifie.getPrenom() + " "
 						+ clientModifie.getNom() + " n'ont pas pu &ecirc;tre mises &agrave; jour");

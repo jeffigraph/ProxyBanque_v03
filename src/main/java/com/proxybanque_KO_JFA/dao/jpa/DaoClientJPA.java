@@ -25,7 +25,52 @@ public class DaoClientJPA implements IDaoClient {
 		EntityTransaction txn = em.getTransaction();
 		try {
 			txn.begin();
-				em.persist(client);
+			em.persist(client);
+
+			txn.commit();
+		} catch (Exception e) {
+			if (txn != null) {
+				txn.rollback();
+			}
+			throw new DaoPersistanceException(e.getMessage(), e.getCause());
+		} finally {
+			if (em != null) {
+				em.close();
+			}
+		}
+	}
+
+	@Override
+	public void update(Client client) throws DaoPersistanceException {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("proxybanque-pu");
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction txn = em.getTransaction();
+		try {
+			txn.begin();
+			em.remove(client);
+			em.persist(client);
+
+			txn.commit();
+		} catch (Exception e) {
+			if (txn != null) {
+				txn.rollback();
+			}
+			throw new DaoPersistanceException(e.getMessage(), e.getCause());
+		} finally {
+			if (em != null) {
+				em.close();
+			}
+		}
+	}
+
+	@Override
+	public void delete(Client client) throws DaoPersistanceException {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("proxybanque-pu");
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction txn = em.getTransaction();
+		try {
+			txn.begin();
+			em.remove(client);
 
 			txn.commit();
 		} catch (Exception e) {
@@ -42,21 +87,34 @@ public class DaoClientJPA implements IDaoClient {
 	}
 
 	@Override
-	public void update(Client client) throws DaoPersistanceException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void delete(Client client) throws DaoPersistanceException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public Client getById(long idClient) throws DaoPersistanceException {
-		// TODO Auto-generated method stub
-		return null;
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("proxybanque-pu");
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction txn = em.getTransaction();
+
+		Client client = null;
+
+		try {
+			txn.begin();
+
+			TypedQuery<Client> query = em.createQuery("select c from Client c where c.idClient = '" + idClient + "'",
+					Client.class);
+			client = query.getResultList().get(0);
+
+			System.out.println("DaoClientJPA : getById() : Size of list result = " + query.getResultList().size());
+
+			txn.commit();
+		} catch (Exception e) {
+			if (txn != null) {
+				txn.rollback();
+			}
+			throw new DaoPersistanceException(e.getMessage(), e.getCause());
+		} finally {
+			if (em != null) {
+				em.close();
+			}
+		}
+		return client;
 	}
 
 	@Override
@@ -70,7 +128,9 @@ public class DaoClientJPA implements IDaoClient {
 		try {
 			txn.begin();
 
-			TypedQuery<Client> query = em.createQuery("select c from Client c where c.conseillerClient.idConseiller = '"+idConseiller+"'", Client.class);
+			TypedQuery<Client> query = em.createQuery(
+					"select c from Client c where c.conseillerClient.idConseiller = '" + idConseiller + "'",
+					Client.class);
 			resultList = query.getResultList();
 
 			System.out.println("DaoClientJPA : getAllByConseillerId() : Size of list result = " + resultList.size());
@@ -88,7 +148,6 @@ public class DaoClientJPA implements IDaoClient {
 			}
 		}
 		return resultList;
-
 	}
 
 	@Override
@@ -121,5 +180,4 @@ public class DaoClientJPA implements IDaoClient {
 		}
 		return resultList;
 	}
-
 }

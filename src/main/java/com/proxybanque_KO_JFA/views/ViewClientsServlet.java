@@ -64,7 +64,7 @@ public class ViewClientsServlet extends HttpServlet {
 							"Il y a " + clientsList.size() + " clients correspondants &agrave; votre demande");
 					request.setAttribute("displayOK", true);
 				} catch (DaoPersistanceException de) {
-					// de.printStackTrace();
+					de.printStackTrace();
 					// TODO : a verifier
 					request.setAttribute("msg", "Aucun clients ne correspondent &agrave; votre demande");
 					request.setAttribute("displayOK", false);
