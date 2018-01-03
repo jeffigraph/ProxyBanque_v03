@@ -55,10 +55,13 @@ public class DaoClientJPA implements IDaoClient {
 			
 			System.out.println("contenu du client DB :" + dbClient.getNom()+ " " +dbClient.getIdClient());
 			
-//			dbClient.setNom(client.getNom());
-//			dbClient.setPrenom(client.getPrenom());
+			dbClient.setNom(client.getNom());
+			dbClient.setPrenom(client.getPrenom());
+			dbClient.setAdresse(client.getAdresse());
+			dbClient.setCodePostal(client.getCodePostal());
+			dbClient.setCompteCourant(client.getCompteCourant());
 
-			//em.refresh(dbClient);
+			em.merge(dbClient);
 
 			txn.commit();
 		} catch (Exception e) {

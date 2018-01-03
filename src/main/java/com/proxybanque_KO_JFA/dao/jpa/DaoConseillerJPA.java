@@ -76,7 +76,7 @@ public class DaoConseillerJPA implements IDaoConseiller {
 		try {
 			txn.begin();
 
-			TypedQuery<Conseiller> query = em.createQuery("from Conseiller", Conseiller.class);
+			TypedQuery<Conseiller> query = em.createQuery("select c from Conseiller c", Conseiller.class);
 			resultList = query.getResultList();
 
 			System.out.println("DaoConseillerJPA : getAll() : Size of list result = " + resultList.size());

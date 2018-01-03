@@ -1,5 +1,7 @@
 package com.proxybanque_KO_JFA.services;
 
+import java.util.List;
+
 import com.proxybanque_KO_JFA.dao.DaoPersistanceException;
 import com.proxybanque_KO_JFA.dao.IDaoConseiller;
 import com.proxybanque_KO_JFA.entity.Conseiller;
@@ -48,5 +50,7 @@ public class ServiceLogin {
 
 		return mConseiller;
 	}
-
+	 public List<Conseiller> getAllConseillers() throws DaoPersistanceException{
+		 return mDaoConseiller.getAll();
+	 }
 }

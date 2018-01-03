@@ -14,8 +14,8 @@ import com.proxybanque_KO_JFA.entity.Conseiller;
 import com.proxybanque_KO_JFA.services.ServiceEngine;
 
 /**
- * Gere l'autentification d'un conseiller avec creation d'une session 
- * assurant la permanence de la connection
+ * Gere l'autentification d'un conseiller avec creation d'une session assurant
+ * la permanence de la connection
  * 
  * Servlet implementation class AutentificationServlet
  */
@@ -40,8 +40,8 @@ public class AutentificationServlet extends HttpServlet {
 	}
 
 	/**
-	 * Permet la deconnexion de la session sur la demande de l'utilisateur
-	 *  ou demande de se reconnecter s'il s'est produit une erreur
+	 * Permet la deconnexion de la session sur la demande de l'utilisateur ou
+	 * demande de se reconnecter s'il s'est produit une erreur
 	 * 
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -74,10 +74,10 @@ public class AutentificationServlet extends HttpServlet {
 	}
 
 	/**
-	 *  Gerer le damande d'identification d'un utilisateur
-	 *  recupere les identifiants de connexion envoyes avec une methode POST
-	 *  s'il n'y a pas de Conseiller correspondant dans la base, 
-	 *  renvoie a la page de saisie des identifiants avec un message d'erreur
+	 * Gerer le damande d'identification d'un utilisateur recupere les identifiants
+	 * de connexion envoyes avec une methode POST s'il n'y a pas de Conseiller
+	 * correspondant dans la base, renvoie a la page de saisie des identifiants avec
+	 * un message d'erreur
 	 * 
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -95,13 +95,17 @@ public class AutentificationServlet extends HttpServlet {
 					HttpSession session = request.getSession();
 
 					session.setAttribute("user", cons.getPrenom() + " " + cons.getNom());
-//					session.setAttribute("idConseiller", cons.getIdConseiller());
+					// session.setAttribute("idConseiller", cons.getIdConseiller());
 					session.setAttribute("idCons", cons.getIdConseiller());
+					request.setAttribute("typeConse", cons.getTypeConseiller());
 
 					request.setAttribute("displayOK", true);
 					request.setAttribute("msg", "Vous etes bien connectes");
-
-					request.getRequestDispatcher("./ViewClients").forward(request, response);
+					if (cons.getTypeConseiller() == Conseiller.TYPECONSEILLER) {
+						request.getRequestDispatcher("./ViewClients").forward(request, response);
+					} else {
+						request.getRequestDispatcher("./ViewConseillers").forward(request, response);
+					}
 				}
 			} catch (DaoPersistanceException ex) {
 				request.setAttribute("displayOK", false);

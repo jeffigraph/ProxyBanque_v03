@@ -1,0 +1,96 @@
+package com.proxybanque_KO_JFA.views;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.proxybanque_KO_JFA.dao.DaoPersistanceException;
+import com.proxybanque_KO_JFA.entity.Client;
+import com.proxybanque_KO_JFA.entity.Conseiller;
+import com.proxybanque_KO_JFA.services.ServiceEngine;
+
+/**
+ * Affichage de la liste des conseillers presents dans le portefeuille du gerant
+ * actuellement identifie dans la session en cours
+ * 
+ * Servlet implementation class ViewClientsServlet
+ */
+@WebServlet("/ViewConseillers")
+public class ViewConseillersServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	private ServiceEngine srvcEng;
+
+	/**
+	 * Chargement du gestionnaire de service de connexion a la base de donnees
+	 * 
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public ViewConseillersServlet() {
+		super();
+		try {
+			srvcEng = new ServiceEngine();
+		} catch (DaoPersistanceException ex) {
+			System.out.println("ViewConseillersServlet : " + ex.getMessage());
+		}
+	}
+
+	/**
+	 * Verifie la validite de la session Recupere l'id du conseiller puis la liste
+	 * de ses conseillers Renvoie la requete a "ViewConseillers.jsp", la page d'affichage
+	 * des donnees
+	 * 
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+
+		if (session != null && session.getAttribute("user") != null) {
+			Long idConseiller = (Long) session.getAttribute("idCons");
+
+			if (idConseiller != 0) {
+				try {
+					List<Conseiller> conseillersList = srvcEng.getServiceLogin().getAllConseillers();
+
+					request.setAttribute("conseillersList", conseillersList);
+					request.setAttribute("msg",
+							"Il y a " + conseillersList.size() + " conseillers correspondants &agrave; votre demande");
+					request.setAttribute("displayOK", true);
+				} catch (DaoPersistanceException de) {
+					 de.printStackTrace();
+					// TODO : a verifier
+					request.setAttribute("msg", "Aucun conseillers ne correspondent &agrave; votre demande");
+					request.setAttribute("displayOK", false);
+				}
+			} else {
+				request.setAttribute("msg", "Aucun conseillers ne correspondent &agrave; votre demande");
+				request.setAttribute("displayOK", false);
+			}
+
+			request.getRequestDispatcher("ViewConseillers.jsp").forward(request, response);
+		} else {
+			request.setAttribute("displayOK", false);
+			request.setAttribute("msg", "Pas de session utilisateur, vous devez vous identifier");
+			request.getRequestDispatcher("Autentification.jsp").forward(request, response);
+		}
+	}
+
+	/**
+	 * Rien a faire a ce niveau
+	 * 
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request, response);
+	}
+
+}

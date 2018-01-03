@@ -136,10 +136,15 @@ public class ViewDetailsClientServlet extends HttpServlet {
 
 			Client clientModifie = new Client(nom, prenom, adresse, ville, codePostal, telephone,
 					clientOriginel.getCompteCourant(), clientOriginel.getCompteEpargne());
+			clientModifie.setIdClient(clientOriginel.getIdClient());
 
 			try {
 				srvcEng.getServiceGestionClient().updateClient(clientModifie);
 				session.setAttribute("client", clientModifie);
+				
+				// affichage du client reel en base
+				Client clientAfficher = srvcEng.getServiceGestionClient().getClient(clientOriginel.getIdClient());
+				session.setAttribute("client", clientAfficher);
 
 				request.setAttribute("displayOK", true);
 				request.setAttribute("msg",
