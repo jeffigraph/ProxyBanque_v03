@@ -95,7 +95,7 @@ public class AutentificationServlet extends HttpServlet {
 					HttpSession session = request.getSession();
 
 					session.setAttribute("user", cons.getPrenom() + " " + cons.getNom());
-					session.setAttribute("idConseiller", cons.getIdConseiller());
+//					session.setAttribute("idConseiller", cons.getIdConseiller());
 					session.setAttribute("idCons", cons.getIdConseiller());
 
 					request.setAttribute("displayOK", true);

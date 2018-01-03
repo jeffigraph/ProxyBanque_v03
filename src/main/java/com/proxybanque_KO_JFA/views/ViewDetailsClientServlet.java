@@ -54,8 +54,8 @@ public class ViewDetailsClientServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 
 		if (session != null && session.getAttribute("user") != null) {
-			int idClient = 0;
-			idClient = Integer.parseInt(request.getParameter("idClient"));
+			Long idClient = 0L;
+			idClient = Long.parseLong(request.getParameter("idClient"));
 			if (idClient != 0) {
 				try {
 					Client client = srvcEng.getServiceGestionClient().getClient(idClient);

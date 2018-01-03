@@ -41,7 +41,7 @@ public class ViewGestionVirementServlet extends HttpServlet {
 
 	private void setListsClientsAsParameters(HttpSession session, HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		int idConseiller = (Integer) session.getAttribute("idCons");
+		Long idConseiller = (Long) session.getAttribute("idCons");
 
 		if (idConseiller != 0) {
 			System.out.println("conseiller :" + idConseiller);

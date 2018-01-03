@@ -52,7 +52,7 @@ public class ViewGestionVirementServlet2 extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		if (session != null && session.getAttribute("user") != null) {
 			
-			int idConseiller = (Integer) session.getAttribute("idCons");
+			Long idConseiller = (Long) session.getAttribute("idCons");
 
 			if (idConseiller != 0) {
 				
