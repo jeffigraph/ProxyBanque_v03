@@ -5,6 +5,7 @@
 
 	<persistence-unit name="proxybanque-pu"
 		transaction-type="RESOURCE_LOCAL">
+		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
 
 			<!-- Database connection settings -->

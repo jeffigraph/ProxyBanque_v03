@@ -8,28 +8,25 @@ import com.proxybanque_KO_JFA.entity.Client;
 import com.proxybanque_KO_JFA.entity.Conseiller;
 import com.proxybanque_KO_JFA.services.ServiceEngine;
 
+public class TestServeImpl implements ITestServe {
 
-public class TestServeImpl implements ITestServe{
-	
 	private ServiceEngine srvcEng;
-	
 
 	public Client getClientById(Long idCli) {
 		Client c1 = null;
 		try {
-			c1= srvcEng.getServiceGestionClient().getClient(idCli);
+			c1 = srvcEng.getServiceGestionClient().getClient(idCli);
 		} catch (DaoPersistanceException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return c1;
 	}
+
 	public List<Client> listClient() {
 		List<Client> resultList = new ArrayList<>();
 		try {
-			resultList =  srvcEng.getServiceGestionClient().getAllClients();
+			resultList = srvcEng.getServiceGestionClient().getAllClients();
 		} catch (DaoPersistanceException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return resultList;
@@ -37,17 +34,13 @@ public class TestServeImpl implements ITestServe{
 
 	@Override
 	public Conseiller login(String login, String psw) {
-		// TODO Auto-generated method stub
 		Conseiller Cons = null;
 		try {
 			Cons = srvcEng.getServiceLogin().login(login, psw);
 		} catch (DaoPersistanceException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return Cons;
 	}
-
-	
 
 }

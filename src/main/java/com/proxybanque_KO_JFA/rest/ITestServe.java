@@ -11,7 +11,7 @@ import javax.ws.rs.core.MediaType;
 import com.proxybanque_KO_JFA.entity.Client;
 import com.proxybanque_KO_JFA.entity.Conseiller;
 
-@Path("/Services")
+@Path("/RestServices")
 public interface ITestServe {
 	
 	@GET
