@@ -37,6 +37,7 @@ public class DaoClientJPA implements IDaoClient {
 			if (em != null) {
 				em.close();
 			}
+			emf.close();
 		}
 	}
 
@@ -47,8 +48,16 @@ public class DaoClientJPA implements IDaoClient {
 		EntityTransaction txn = em.getTransaction();
 		try {
 			txn.begin();
-			em.remove(client);
-			em.persist(client);
+
+			System.out.println(client.getIdClient());
+			Client dbClient = em.find(Client.class, client.getIdClient());
+			
+			System.out.println(dbClient.getNom()+ " " +dbClient.getIdClient());
+			
+//			dbClient.setNom(client.getNom());
+//			dbClient.setPrenom(client.getPrenom());
+
+			//em.refresh(dbClient);
 
 			txn.commit();
 		} catch (Exception e) {
@@ -60,6 +69,7 @@ public class DaoClientJPA implements IDaoClient {
 			if (em != null) {
 				em.close();
 			}
+			emf.close();
 		}
 	}
 
@@ -82,6 +92,7 @@ public class DaoClientJPA implements IDaoClient {
 			if (em != null) {
 				em.close();
 			}
+			emf.close();
 		}
 
 	}
@@ -113,6 +124,7 @@ public class DaoClientJPA implements IDaoClient {
 			if (em != null) {
 				em.close();
 			}
+			emf.close();
 		}
 		return client;
 	}
@@ -146,6 +158,7 @@ public class DaoClientJPA implements IDaoClient {
 			if (em != null) {
 				em.close();
 			}
+			emf.close();
 		}
 		return resultList;
 	}
@@ -177,6 +190,7 @@ public class DaoClientJPA implements IDaoClient {
 			if (em != null) {
 				em.close();
 			}
+			emf.close();
 		}
 		return resultList;
 	}

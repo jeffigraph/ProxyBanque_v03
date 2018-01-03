@@ -47,24 +47,24 @@
 					<tr>
 						<td><div class="field_line client">
 								<input type="text" class="client" name="prenom" id="prenom"
-									placeholder="Pr&eacute;nom"> <input type="text"
-									class="client" name="nom" id="nom" placeholder="Nom">
+									value="${client.prenom}" /> <input type="text" class="client"
+									name="nom" id="nom" value="${client.nom }" />
 							</div></td>
 						<td><div class="field_line client">
 								<input type="text" class="client" name="adresse" id="adresse"
-									placeholder="Adresse"> <input type="text"
+									value="${client.adresse}" /> <input type="text"
 									class="client" name="codepostal" id="codepostal"
-									placeholder="Code postal"> <input type="text"
-									class="client" name="ville" id="ville" placeholder="Ville">
+									value="${client.codePostal}" /> <input type="text"
+									class="client" name="ville" id="ville" value="${client.ville}"/>
 							</div></td>
 						<td><div class="field_line client">
 								<input type="text" class="client" name="telephone"
-									id="telephone" placeholder="T&eacute;l&eacute;phone">
+									id="telephone" value="${client.telephone}" />
 							</div></td>
 					</tr>
 					<tr>
 						<td colspan="3"><div class="field_line client">
-								<input type="submit" value="mettre &agrave; jour">
+								<input type="submit" value="mettre &agrave; jour" />
 							</div></td>
 					</tr>
 				</table>

@@ -55,7 +55,7 @@ public class DaoCompteJPA implements IDaoCompte {
 				em.close();
 			}
 		}
-
+		emf.close();
 	}
 
 	/*
@@ -123,6 +123,7 @@ public class DaoCompteJPA implements IDaoCompte {
 				em.close();
 			}
 		}
+		emf.close();
 		return compte;
 	}
 
@@ -159,6 +160,7 @@ public class DaoCompteJPA implements IDaoCompte {
 				em.close();
 			}
 		}
+		emf.close();
 		return resultList;
 	}
 

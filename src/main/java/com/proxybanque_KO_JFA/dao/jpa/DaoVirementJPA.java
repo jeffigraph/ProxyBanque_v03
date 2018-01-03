@@ -44,6 +44,7 @@ public class DaoVirementJPA implements IDaoVirement {
 				em.close();
 			}
 		}
+		emf.close();
 	}
 
 	/*
@@ -103,6 +104,7 @@ public class DaoVirementJPA implements IDaoVirement {
 				em.close();
 			}
 		}
+		emf.close();
 		return virement;
 	}
 
@@ -138,6 +140,7 @@ public class DaoVirementJPA implements IDaoVirement {
 				em.close();
 			}
 		}
+		emf.close();
 		return lstVirements;
 	}
 }

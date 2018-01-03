@@ -38,7 +38,7 @@ public class DaoConseillerJPA implements IDaoConseiller {
 				em.close();
 			}
 		}
-
+		emf.close();
 	}
 
 	@Override
@@ -93,6 +93,7 @@ public class DaoConseillerJPA implements IDaoConseiller {
 				em.close();
 			}
 		}
+		emf.close();
 		return resultList;
 	}
 

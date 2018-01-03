@@ -40,6 +40,7 @@ public class DaoCarteBancaireJPA implements IDaoCarteBancaire {
 			if (em != null) {
 				em.close();
 			}
+			emf.close();
 		}
 
 	}
@@ -64,6 +65,7 @@ public class DaoCarteBancaireJPA implements IDaoCarteBancaire {
 			if (em != null) {
 				em.close();
 			}
+			emf.close();
 		}
 	}
 
@@ -87,6 +89,7 @@ public class DaoCarteBancaireJPA implements IDaoCarteBancaire {
 			if (em != null) {
 				em.close();
 			}
+			emf.close();
 		}
 
 	}
@@ -121,7 +124,9 @@ public class DaoCarteBancaireJPA implements IDaoCarteBancaire {
 			if (em != null) {
 				em.close();
 			}
+			emf.close();
 		}
+		emf.close();
 		return cb;
 	}
 
@@ -153,6 +158,7 @@ public class DaoCarteBancaireJPA implements IDaoCarteBancaire {
 				em.close();
 			}
 		}
+		emf.close();
 		return resultList;
 	}
 
