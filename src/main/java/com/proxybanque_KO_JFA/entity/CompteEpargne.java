@@ -18,7 +18,7 @@ public class CompteEpargne extends Compte {
 	@OneToOne(cascade = { CascadeType.PERSIST })
 	@JoinColumn(name = "id_client")
 	private Client client;
-
+	
 	/**
 	 * 
 	 */
@@ -71,16 +71,6 @@ public class CompteEpargne extends Compte {
 		return TYPE_COMPTE;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "CompteEpargne [tauxRemuneration=" + tauxRemuneration + "]";
-	}
-
 	public Client getClient() {
 		return client;
 	}
@@ -88,5 +78,6 @@ public class CompteEpargne extends Compte {
 	public void setClient(Client client) {
 		this.client = client;
 	}
+
 
 }

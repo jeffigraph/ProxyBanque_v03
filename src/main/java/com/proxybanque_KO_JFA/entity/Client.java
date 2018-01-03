@@ -23,13 +23,12 @@ import javax.persistence.Table;
 @Table(name = "client")
 public class Client {
 
-
 	public static final int PARTICULIER = 1;
 	public static final int ENTREPRISE = 2;
 
 	@Id
+	@Column(name = "id_client")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="id_client")
 	private long idClient;
 
 	private String nom;
@@ -44,15 +43,15 @@ public class Client {
 
 	private String telephone;
 
-	@OneToOne(mappedBy="clientCourant", cascade = { CascadeType.PERSIST })
+	@OneToOne(mappedBy = "client", cascade = { CascadeType.PERSIST })
 	private CompteCourant compteCourant;
 
-	@OneToOne(mappedBy="client", cascade = { CascadeType.PERSIST })
+	@OneToOne(mappedBy = "client", cascade = { CascadeType.PERSIST })
 	private CompteEpargne compteEpargne;
 
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	@JoinColumn(name = "id_conseiller")
-	private Conseiller conseiller;
+	private Conseiller conseillerClient;
 
 	/**
 	 * 
@@ -72,10 +71,9 @@ public class Client {
 	 * @param compteCourant
 	 * @param compteEpargne
 	 */
-	public Client(long idClient, String nom, String prenom, String adresse, String ville, int codePostal,
-			String telephone, CompteCourant compteCourant, CompteEpargne compteEpargne) {
+	public Client(String nom, String prenom, String adresse, String ville, int codePostal, String telephone,
+			CompteCourant compteCourant, CompteEpargne compteEpargne) {
 		super();
-		this.idClient = idClient;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.adresse = adresse;
@@ -86,195 +84,84 @@ public class Client {
 		this.compteEpargne = compteEpargne;
 	}
 
-	/**
-	 * @return the nom
-	 */
-	public String getNom() {
-		return nom;
-	}
-
-	/**
-	 * @return the prenom
-	 */
-	public String getPrenom() {
-		return prenom;
-	}
-
-	/**
-	 * @return the adresse
-	 */
-	public String getAdresse() {
-		return adresse;
-	}
-
-	/**
-	 * @return the codePostal
-	 */
-	public Integer getCodePostal() {
-		return codePostal;
-	}
-
-	/**
-	 * @return the ville
-	 */
-	public String getVille() {
-		return ville;
-	}
-
-	/**
-	 * @return the telephone
-	 */
-	public String getTelephone() {
-		return telephone;
-	}
-
-	/**
-	 * @return the compteCourant
-	 */
-	public CompteCourant getCompteCourant() {
-		return compteCourant;
-	}
-
-	/**
-	 * @return the compteEpargne
-	 */
-	public CompteEpargne getCompteEpargne() {
-		return compteEpargne;
-	}
-
-	/**
-	 * @return the idClient
-	 */
 	public long getIdClient() {
 		return idClient;
 	}
 
-	/**
-	 * @param nom
-	 *            the nom to set
-	 */
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-
-	/**
-	 * @param prenom
-	 *            the prenom to set
-	 */
-	public void setPrenom(String prenom) {
-		this.prenom = prenom;
-	}
-
-	/**
-	 * @param adresse
-	 *            the adresse to set
-	 */
-	public void setAdresse(String adresse) {
-		this.adresse = adresse;
-	}
-
-	/**
-	 * @param codePostal
-	 *            the codePostal to set
-	 */
-	public void setCodePostal(int codePostal) {
-		this.codePostal = codePostal;
-	}
-
-	/**
-	 * @param ville
-	 *            the ville to set
-	 */
-	public void setVille(String ville) {
-		this.ville = ville;
-	}
-
-	/**
-	 * @param telephone
-	 *            the telephone to set
-	 */
-	public void setTelephone(String telephone) {
-		this.telephone = telephone;
-	}
-
-	/**
-	 * @param compteCourant
-	 *            the compteCourant to set
-	 */
-	public void setCompteCourant(CompteCourant compteCourant) {
-		this.compteCourant = compteCourant;
-	}
-
-	/**
-	 * @param compteEpargne
-	 *            the compteEpargne to set
-	 */
-	public void setCompteEpargne(CompteEpargne compteEpargne) {
-		this.compteEpargne = compteEpargne;
-	}
-
-	/**
-	 * @param codePostal
-	 *            the codePostal to set
-	 */
-	public void setCodePostal(Integer codePostal) {
-		this.codePostal = codePostal;
-	}
-
-	/**
-	 * @param idClient
-	 *            the idClient to set
-	 */
-	public void setIdClient(int idClient) {
-		this.idClient = idClient;
-	}
-
-	/**
-	 * @return true if there is a CompteCourant
-	 */
-	public boolean hasCompteCourant() {
-		return compteCourant != null;
-	}
-
-	/**
-	 * @return true if there is e CompteEpargne
-	 */
-	public boolean hasCompteEpargne() {
-		return compteEpargne != null;
-	}
-
-	/**
-	 * @return the particulier
-	 */
-	public static int getParticulier() {
-		return PARTICULIER;
-	}
-
-	/**
-	 * @return the entreprise
-	 */
-	public static int getEntreprise() {
-		return ENTREPRISE;
-	}
-
-	/**
-	 * @param idClient
-	 *            the idClient to set
-	 */
 	public void setIdClient(long idClient) {
 		this.idClient = idClient;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Client [ id=" + idClient + ", nom=" + nom + ", prenom=" + prenom + ", adresse=" + adresse
-				+ ", codePostal=" + codePostal + ", ville=" + ville + ", telephone=" + telephone + ", compteCourant="
-				+ compteCourant + ", compteEpargne=" + compteEpargne + "]";
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public String getPrenom() {
+		return prenom;
+	}
+
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+
+	public String getAdresse() {
+		return adresse;
+	}
+
+	public void setAdresse(String adresse) {
+		this.adresse = adresse;
+	}
+
+	public String getVille() {
+		return ville;
+	}
+
+	public void setVille(String ville) {
+		this.ville = ville;
+	}
+
+	public int getCodePostal() {
+		return codePostal;
+	}
+
+	public void setCodePostal(int codePostal) {
+		this.codePostal = codePostal;
+	}
+
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+
+	public CompteCourant getCompteCourant() {
+		return compteCourant;
+	}
+
+	public void setCompteCourant(CompteCourant compteCourant) {
+		this.compteCourant = compteCourant;
+	}
+
+	public CompteEpargne getCompteEpargne() {
+		return compteEpargne;
+	}
+
+	public void setCompteEpargne(CompteEpargne compteEpargne) {
+		this.compteEpargne = compteEpargne;
+	}
+
+	public Conseiller getConseillerClient() {
+		return conseillerClient;
+	}
+
+	public void setConseillerClient(Conseiller conseillerClient) {
+		this.conseillerClient = conseillerClient;
 	}
 
 	public Compte getCompteByNum(String numCompte) {
@@ -285,13 +172,5 @@ public class Client {
 		else
 			return null;
 	}
-
-	public Conseiller getConseiller() {
-		return conseiller;
-	}
-
-	public void setConseiller(Conseiller conseiller) {
-		this.conseiller = conseiller;
-	}
-
+	
 }

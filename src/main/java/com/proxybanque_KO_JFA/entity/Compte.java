@@ -1,5 +1,6 @@
 package com.proxybanque_KO_JFA.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 /**
  * Description d'un Compte bancaire classe abstraite devant etre etendue
@@ -17,6 +20,13 @@ import javax.persistence.InheritanceType;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Compte {
+	/**
+	 * les types que peut prendre un compte
+	 */
+	public static final String PARTICULIER = "particulier";
+	public static final String ENTREPRISE = "entreprise";
+	public static final String COURANT = "courant";
+	public static final String EPARGNE = "epargne";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,15 +48,7 @@ public abstract class Compte {
 	 * le type du compte : Courant ou Epargne
 	 */
 	private String typeCompte;
-
-	/**
-	 * les types que peut prendre un compte
-	 */
-	public static final String PARTICULIER = "particulier";
-	public static final String ENTREPRISE = "entreprise";
-	public static final String COURANT = "courant";
-	public static final String EPARGNE = "epargne";
-
+	
 	/**
 	 * 
 	 */
@@ -180,20 +182,6 @@ public abstract class Compte {
 	 */
 	public void removeFromSolde(int montant) {
 		this.solde -= montant;
-	}
-
-	/**
-	 * @return the particulier
-	 */
-	public static String getParticulier() {
-		return PARTICULIER;
-	}
-
-	/**
-	 * @return the entreprise
-	 */
-	public static String getEntreprise() {
-		return ENTREPRISE;
 	}
 
 }

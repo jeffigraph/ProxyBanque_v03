@@ -132,7 +132,7 @@ public class ViewDetailsClientServlet extends HttpServlet {
 			if (telephone.equals(""))
 				telephone = clientOriginel.getTelephone();
 
-			Client clientModifie = new Client(clientOriginel.getIdClient(), nom, prenom, adresse, ville, codePostal, telephone, 
+			Client clientModifie = new Client(nom, prenom, adresse, ville, codePostal, telephone, 
 					clientOriginel.getCompteCourant(), clientOriginel.getCompteEpargne());
 
 			try {

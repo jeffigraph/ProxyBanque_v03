@@ -23,7 +23,6 @@ public class TestMain {
 
 	public static void main(String[] args) {
 		CarteBancaire cb1 = new CarteBancaire();
-		//cb1.setIdCarte(1L);
 		cb1.setNumeroCarte("5654564165");
 		cb1.setTypeCarte(CarteBancaire.VISA_ELECTRON);
 		// System.out.println(cb1);
@@ -41,46 +40,48 @@ public class TestMain {
 
 		// System.out.println(cc);
 
-		Client clt = new Client(1, "Einstein", "Albert", "23 rue des Canards Sauvages", "Lille", 20001, "+33012598774",
+		Client clt = new Client("Einstein", "Albert", "23 rue des Canards Sauvages", "Lille", 20001, "+33012598774",
 				null, null);
-//		clt.setCompteCourant(cc);
-//		cc.setClient(clt);
+		clt.setCompteCourant(cc);
+		cc.setClient(clt);
 
 		// System.out.println(clt);
 
-		Client clt2 = new Client(2, "Marx", "Karl", "12 rue des Anges Rouges", "La Havane", 45201, "+29454541", null,
+		Client clt2 = new Client("Marx", "Karl", "12 rue des Anges Rouges", "La Havane", 45201, "+29454541", null,
 				null);
 		// System.out.println(clt2);
 
-		// Conseiller conseiller = new Conseiller(1, "Loiseaux", "Michel",
-		// Conseiller.TYPECONSEILLER, null);
-		// conseiller.setLogin("michel");
-		// conseiller.setPassword("test");
+		Conseiller conseiller = new Conseiller("Loiseaux", "Michel", Conseiller.TYPECONSEILLER, null);
+		conseiller.setLogin("michel");
+		conseiller.setPassword("test");
 
-		// clt.setConseiller(conseiller);
-		// clt2.setConseiller(conseiller);
+		clt.setConseillerClient(conseiller);
+		clt2.setConseillerClient(conseiller);
 
-		// List<Client> lstClients = new ArrayList<>();
-		// lstClients.add(clt);
-		// lstClients.add(clt2);
+		List<Client> lstClients = new ArrayList<>();
+		lstClients.add(clt);
+		lstClients.add(clt2);
 
-		// conseiller.setPortefeuilleClients(lstClients);
+		conseiller.setPortefeuilleClients(lstClients);
 
-		IDaoCarteBancaire daoCarteB = new DaoCarteBancaireJPA();
-		IDaoCompte daoCompte = new DaoCompteJPA();
+		 IDaoCarteBancaire daoCarteB = new DaoCarteBancaireJPA();
+		// IDaoCompte daoCompte = new DaoCompteJPA();
 		IDaoClient daoClient = new DaoClientJPA();
 
 		IDaoConseiller daoConseiller = new DaoConseillerJPA();
 		try {
-			daoCarteB.add(cb1);
-			 //CarteBancaire cb = daoCarteB.getById(cb1.getNumeroCarte());
+			// daoCarteB.add(cb1);
+			 CarteBancaire cb = daoCarteB.getById(cb1.getNumeroCarte());
+			 System.out.println(cb);
 
-			daoCompte.add(cc);
-			//daoClient.add(clt);
-			// daoClient.add(clt2);
+			// daoCompte.add(cc);
+//			daoClient.add(clt);
+//			daoClient.add(clt2);
 
-			// daoConseiller.add(conseiller);
-
+			daoConseiller.add(conseiller);
+			Conseiller cons = daoConseiller.getByLogin("michel", "test");
+			System.out.println(cons);
+			
 			// CarteBancaire cb2 = daoCarteB.getById(cb1.getNumeroCarte());
 			// System.out.println(cb2);
 

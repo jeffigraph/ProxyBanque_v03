@@ -24,11 +24,10 @@ import javax.persistence.Table;
 @Table(name = "conseiller")
 public class Conseiller {
 
-	// Attributs DB aide a preparation des requetes
 	public static String TYPECONSEILLER = "conseiller";
 	public static String TYPEGERANT = "gerant";
 
-	private int MAX_CLIENT = 10;
+	public static final int MAX_CLIENT = 10;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -44,33 +43,8 @@ public class Conseiller {
 	private String login;
 	private String password;
 
-	@OneToMany(mappedBy = "conseiller", cascade = { CascadeType.PERSIST })
+	@OneToMany(mappedBy = "conseillerClient", cascade = { CascadeType.PERSIST })
 	private List<Client> portefeuilleClients;
-
-	/**
-	 * Constructeur de la classe Conseiller
-	 *
-	 * @param nom
-	 * @param prenom
-	 * @param id
-	 */
-	// public Conseiller(int id, String nom, String prenom) {
-	// super();
-	// this.nom = nom;
-	// this.prenom = prenom;
-	// this.id = id;
-	// this.typeConseiller = null;
-	// this.portefeuilleClients = new ArrayList<>();
-	// }
-	//
-	// public Conseiller(int id, String nom, String prenom, List<Client>
-	// portefeuilleClients) {
-	// this.nom = nom;
-	// this.prenom = prenom;
-	// this.id = id;
-	// this.typeConseiller = null;
-	// this.portefeuilleClients = portefeuilleClients;
-	// }
 
 	/**
 	 * 
@@ -86,9 +60,8 @@ public class Conseiller {
 	 * @param typeConseiller
 	 * @param portefeuilleClients
 	 */
-	public Conseiller(long id, String nom, String prenom, String typeConseiller, List<Client> portefeuilleClients) {
+	public Conseiller(String nom, String prenom, String typeConseiller, List<Client> portefeuilleClients) {
 		super();
-		this.idConseiller = id;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.typeConseiller = typeConseiller;
@@ -196,7 +169,7 @@ public class Conseiller {
 	 * @return false
 	 */
 	public boolean addClient(Client client) {
-		if (portefeuilleClients.size() < this.MAX_CLIENT) {
+		if (portefeuilleClients.size() < Conseiller.MAX_CLIENT) {
 			portefeuilleClients.add(client);
 			return true;
 		} else {
@@ -234,51 +207,11 @@ public class Conseiller {
 	}
 
 	/**
-	 * @return the tYPECONSEILLER
-	 */
-	public static String getTYPECONSEILLER() {
-		return TYPECONSEILLER;
-	}
-
-	/**
-	 * @return the tYPEGERANT
-	 */
-	public static String getTYPEGERANT() {
-		return TYPEGERANT;
-	}
-
-	/**
-	 * @return the mAX_CLIENT
-	 */
-	public int getMAX_CLIENT() {
-		return MAX_CLIENT;
-	}
-
-	/**
-	 * @param mAX_CLIENT
-	 *            the mAX_CLIENT to set
-	 */
-	public void setMAX_CLIENT(int mAX_CLIENT) {
-		MAX_CLIENT = mAX_CLIENT;
-	}
-
-	/**
 	 * @param portefeuilleClients
 	 *            the portefeuilleClients to set
 	 */
 	public void setPortefeuilleClients(List<Client> portefeuilleClients) {
 		this.portefeuilleClients = portefeuilleClients;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Conseiller [MAX_CLIENT=" + MAX_CLIENT + ", id=" + idConseiller + ", nom=" + nom + ", prenom=" + prenom
-				+ ", typeConseiller=" + typeConseiller + ", portefeuilleClients=" + portefeuilleClients + "]";
 	}
 
 }

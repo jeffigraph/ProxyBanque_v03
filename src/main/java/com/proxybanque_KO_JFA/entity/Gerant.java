@@ -16,19 +16,10 @@ public class Gerant extends Conseiller {
 	 * @param typeConseiller
 	 * @param portefeuilleClients
 	 */
-	public Gerant(int id, String nom, String prenom, String typeConseiller, List<Client> portefeuilleClients) {
-		super(id, nom, prenom, typeConseiller, portefeuilleClients);
+	public Gerant(String nom, String prenom, String typeConseiller, List<Client> portefeuilleClients) {
+		super(nom, prenom, typeConseiller, portefeuilleClients);
 		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @param nom
-	 * @param prenom
-	 * @param id
-	 */
-//	public Gerant(int id, String nom, String prenom) {
-//		super(id ,nom, prenom);
-//	}
-	
 
 }
