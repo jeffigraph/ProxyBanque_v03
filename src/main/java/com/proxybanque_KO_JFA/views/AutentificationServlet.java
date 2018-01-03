@@ -101,7 +101,9 @@ public class AutentificationServlet extends HttpServlet {
 
 					request.setAttribute("displayOK", true);
 					request.setAttribute("msg", "Vous etes bien connectes");
-					if (cons.getTypeConseiller() == Conseiller.TYPECONSEILLER) {
+					
+					//System.out.println("Authtification : doPost "+cons.getTypeConseiller() + " "+ cons.getNom());
+					if (cons.getTypeConseiller().equals(Conseiller.TYPECONSEILLER)) {
 						request.getRequestDispatcher("./ViewClients").forward(request, response);
 					} else {
 						request.getRequestDispatcher("./ViewConseillers").forward(request, response);

@@ -66,6 +66,11 @@ public class ServiceGestionClient {
 		// return daoClient.getClient(idClient);
 		return daoClient.getById(idClient);
 	}
+	
+	public Client getClientByNumCompte(String numCompte) throws DaoPersistanceException {
+		// return daoClient.getClient(idClient);
+		return daoClient.getByNumCompte(numCompte);
+	}
 
 	public List<Client> getAllClientsByConseiller(Conseiller conseiller) throws DaoPersistanceException{
 		return daoClient.getAllByConseillerId(conseiller.getIdConseiller());

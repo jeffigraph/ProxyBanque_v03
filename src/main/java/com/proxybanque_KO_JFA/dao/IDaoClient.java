@@ -13,6 +13,8 @@ public interface IDaoClient {
 	void delete(Client client) throws DaoPersistanceException;
 
 	Client getById(long idClient) throws DaoPersistanceException;
+	
+	Client getByNumCompte(String numCompte) throws DaoPersistanceException;
 
 	/**
 	 * Renvoie la liste des clients du conseiller dont l'identifiant est fourni en

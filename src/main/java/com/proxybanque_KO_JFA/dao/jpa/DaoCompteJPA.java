@@ -98,7 +98,7 @@ public class DaoCompteJPA implements IDaoCompte {
 		try {
 			txn.begin();
 
-			TypedQuery<Compte> query = em.createQuery("select c from Compte c", Compte.class);
+			TypedQuery<Compte> query = em.createQuery("select c from Compte c where c.numeroCompte = '"+ numeroCompte +"'", Compte.class);
 			List<Compte> resultList = query.getResultList();
 
 			for (Compte cpte : resultList) {
@@ -221,7 +221,32 @@ public class DaoCompteJPA implements IDaoCompte {
 	 */
 	@Override
 	public void updateSolde(Compte c) throws DaoPersistanceException {
-		// TODO Auto-generated method stub
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("proxybanque-pu");
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction txn = em.getTransaction();
+		try {
+			txn.begin();
+
+			Compte dbCompte = em.find(Compte.class, c.getIdCompte());
+			System.out.println(dbCompte);
+			
+			dbCompte.setSolde(c.getSolde());
+
+			em.merge(dbCompte);
+
+			txn.commit();
+		} catch (Exception e) {
+			if (txn != null) {
+				txn.rollback();
+			}
+			System.out.println(e.getMessage());
+			throw new DaoPersistanceException(e.getMessage(), e.getCause());
+		} finally {
+			if (em != null) {
+				em.close();
+			}
+			emf.close();
+		}
 
 	}
 

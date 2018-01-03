@@ -49,12 +49,12 @@ public class DaoClientJPA implements IDaoClient {
 		try {
 			txn.begin();
 
-			System.out.println("client recu : "+client);
+			System.out.println("client recu : " + client);
 			System.out.println("id du client recu : " + client.getIdClient());
 			Client dbClient = em.find(Client.class, client.getIdClient());
-			
-			System.out.println("contenu du client DB :" + dbClient.getNom()+ " " +dbClient.getIdClient());
-			
+
+			System.out.println("contenu du client DB :" + dbClient.getNom() + " " + dbClient.getIdClient());
+
 			dbClient.setNom(client.getNom());
 			dbClient.setPrenom(client.getPrenom());
 			dbClient.setAdresse(client.getAdresse());
@@ -118,6 +118,44 @@ public class DaoClientJPA implements IDaoClient {
 			client = query.getResultList().get(0);
 
 			System.out.println("DaoClientJPA : getById() : Size of list result = " + query.getResultList().size());
+
+			txn.commit();
+		} catch (Exception e) {
+			if (txn != null) {
+				txn.rollback();
+			}
+			throw new DaoPersistanceException(e.getMessage(), e.getCause());
+		} finally {
+			if (em != null) {
+				em.close();
+			}
+			emf.close();
+		}
+		return client;
+	}
+
+	@Override
+	public Client getByNumCompte(String numCompte) throws DaoPersistanceException {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("proxybanque-pu");
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction txn = em.getTransaction();
+
+		Client client = null;
+
+		try {
+			txn.begin();
+
+			TypedQuery<Client> query = em.createQuery(
+					"select c from Client c, Compte cpt where c.idClient = cpt.idClient and cpt.numeroCompte = '"
+							+ numCompte + "'",
+					Client.class);
+			if (query.getResultList() != null) {
+				if (query.getResultList().size() != 0) {
+					client = query.getResultList().get(0);
+				}
+			}
+
+			System.out.println("DaoClientJPA : getByNumCompte() : Size of list result = " + query.getResultList().size());
 
 			txn.commit();
 		} catch (Exception e) {

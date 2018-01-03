@@ -59,12 +59,12 @@
 									<c:forEach items="${clientsCrediteurList}" var="clientCred">
 
 										<c:if test="${clientCred.compteCourant ne Empty }">
-											<option value="${clientCred.compteCourant.numeroCompte}">${clientCred.prenom}&nbsp;${clientCred.nom}&nbsp;${clientDeb.prenom}&nbsp;N°
+											<option value="${clientCred.compteCourant.numeroCompte}">${clientCred.prenom}&nbsp;${clientCred.nom}&nbsp;${clientCred.prenom}&nbsp;N°
 												compte
 												courant:&nbsp;${clientCred.compteCourant.numeroCompte}</option>
 										</c:if>
 										<c:if test="${clientCred.compteEpargne ne Empty }">
-											<option value="${clientCred.compteEpargne.numeroCompte}">${clientCred.prenom}&nbsp;${clientCred.nom}&nbsp;${clientDeb.prenom}&nbsp;N°
+											<option value="${clientCred.compteEpargne.numeroCompte}">${clientCred.prenom}&nbsp;${clientCred.nom}&nbsp;${clientCred.prenom}&nbsp;N°
 												compte
 												&eacute;pargne:&nbsp;${clientCred.compteEpargne.numeroCompte}</option>
 										</c:if>
