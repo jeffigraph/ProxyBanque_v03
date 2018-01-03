@@ -71,16 +71,17 @@ public class TestMain {
 		IDaoConseiller daoConseiller = new DaoConseillerJPA();
 		try {
 			// daoCarteB.add(cb1);
-			 CarteBancaire cb = daoCarteB.getById(cb1.getNumeroCarte());
-			 System.out.println(cb);
 
 			// daoCompte.add(cc);
 //			daoClient.add(clt);
 //			daoClient.add(clt2);
 
 			daoConseiller.add(conseiller);
+			CarteBancaire cb = daoCarteB.getById(cb1.getNumeroCarte());
+			System.out.println(cb);
 			Conseiller cons = daoConseiller.getByLogin("michel", "test");
-			System.out.println(cons);
+			//System.out.println(cons);
+			System.out.println(cons.getIdConseiller() + " " + cons.getNom() + " " + cons.getLogin());
 			
 			// CarteBancaire cb2 = daoCarteB.getById(cb1.getNumeroCarte());
 			// System.out.println(cb2);

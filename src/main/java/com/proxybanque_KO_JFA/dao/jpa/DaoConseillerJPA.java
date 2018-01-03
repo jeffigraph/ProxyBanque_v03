@@ -114,7 +114,7 @@ public class DaoConseillerJPA implements IDaoConseiller {
 			txn.begin();
 
 			TypedQuery<Conseiller> query = em.createQuery(
-					"from Conseiller where login = '" + login + "' and password = '" + password + "'",
+					"select c from Conseiller c where c.login = '" + login + "' and c.password = '" + password + "'",
 					Conseiller.class);
 			List<Conseiller> resultList = query.getResultList();
 
