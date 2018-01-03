@@ -49,10 +49,11 @@ public class DaoClientJPA implements IDaoClient {
 		try {
 			txn.begin();
 
-			System.out.println(client.getIdClient());
+			System.out.println("client recu : "+client);
+			System.out.println("id du client recu : " + client.getIdClient());
 			Client dbClient = em.find(Client.class, client.getIdClient());
 			
-			System.out.println(dbClient.getNom()+ " " +dbClient.getIdClient());
+			System.out.println("contenu du client DB :" + dbClient.getNom()+ " " +dbClient.getIdClient());
 			
 //			dbClient.setNom(client.getNom());
 //			dbClient.setPrenom(client.getPrenom());
@@ -64,6 +65,7 @@ public class DaoClientJPA implements IDaoClient {
 			if (txn != null) {
 				txn.rollback();
 			}
+			System.out.println(e.getMessage());
 			throw new DaoPersistanceException(e.getMessage(), e.getCause());
 		} finally {
 			if (em != null) {
