@@ -70,8 +70,7 @@ public class DaoClientJPA implements IDaoClient {
 		try {
 			txn.begin();
 
-			// TODO: relation OneToMany bidirectionnelle 
-			TypedQuery<Client> query = em.createQuery("from Client where "+idConseiller, Client.class);
+			TypedQuery<Client> query = em.createQuery("select c from Client c where c.conseillerClient.idConseiller = '"+idConseiller+"'", Client.class);
 			resultList = query.getResultList();
 
 			System.out.println("DaoClientJPA : getAllByConseillerId() : Size of list result = " + resultList.size());

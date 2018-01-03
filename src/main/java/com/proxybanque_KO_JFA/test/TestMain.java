@@ -64,8 +64,8 @@ public class TestMain {
 
 		conseiller.setPortefeuilleClients(lstClients);
 
-		 IDaoCarteBancaire daoCarteB = new DaoCarteBancaireJPA();
-		// IDaoCompte daoCompte = new DaoCompteJPA();
+		IDaoCarteBancaire daoCarteB = new DaoCarteBancaireJPA();
+		IDaoCompte daoCompte = new DaoCompteJPA();
 		IDaoClient daoClient = new DaoClientJPA();
 
 		IDaoConseiller daoConseiller = new DaoConseillerJPA();
@@ -73,16 +73,19 @@ public class TestMain {
 			// daoCarteB.add(cb1);
 
 			// daoCompte.add(cc);
-//			daoClient.add(clt);
-//			daoClient.add(clt2);
+			// daoClient.add(clt);
+			// daoClient.add(clt2);
 
-			daoConseiller.add(conseiller);
+			// daoConseiller.add(conseiller);
 			CarteBancaire cb = daoCarteB.getById(cb1.getNumeroCarte());
-			System.out.println(cb);
+			// System.out.println(cb);
 			Conseiller cons = daoConseiller.getByLogin("michel", "test");
-			//System.out.println(cons);
+			// System.out.println(cons);
 			System.out.println(cons.getIdConseiller() + " " + cons.getNom() + " " + cons.getLogin());
-			
+
+			// Compte cpte = daoCompte.getById(cc.getNumeroCompte());
+			// System.out.println(cpte.getTypeCompte());
+
 			// CarteBancaire cb2 = daoCarteB.getById(cb1.getNumeroCarte());
 			// System.out.println(cb2);
 

@@ -89,8 +89,41 @@ public class DaoCompteJPA implements IDaoCompte {
 	 */
 	@Override
 	public Compte getById(String numeroCompte) throws DaoPersistanceException {
-		// TODO Auto-generated method stub
-		return null;
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("proxybanque-pu");
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction txn = em.getTransaction();
+
+		Compte compte = null;
+
+		try {
+			txn.begin();
+
+			TypedQuery<Compte> query = em.createQuery("select c from Compte c", Compte.class);
+			List<Compte> resultList = query.getResultList();
+
+			for (Compte cpte : resultList) {
+				if (CompteCourant.class.isAssignableFrom(cpte.getClass())) {
+					compte = (CompteCourant) cpte;
+				}
+				if (CompteEpargne.class.isAssignableFrom(cpte.getClass())) {
+					compte = (CompteEpargne) cpte;
+				}
+			}
+
+			System.out.println("DaoCompteJPA : getAll() : Size of list result = " + resultList.size());
+
+			txn.commit();
+		} catch (Exception e) {
+			if (txn != null) {
+				txn.rollback();
+			}
+			throw new DaoPersistanceException(e.getMessage(), e.getCause());
+		} finally {
+			if (em != null) {
+				em.close();
+			}
+		}
+		return compte;
 	}
 
 	/*
@@ -109,9 +142,8 @@ public class DaoCompteJPA implements IDaoCompte {
 		try {
 			txn.begin();
 
-			TypedQuery<Compte> query = em.createQuery("from Compte c", Compte.class);
+			TypedQuery<Compte> query = em.createQuery("select c from Compte c", Compte.class);
 			resultList = query.getResultList();
-			
 
 			System.out.println("DaoCompteJPA : getAll() : Size of list result = " + resultList.size());
 			System.out.println(resultList);
@@ -177,7 +209,6 @@ public class DaoCompteJPA implements IDaoCompte {
 		// TODO Auto-generated method stub
 
 	}
-
 
 	/*
 	 * (non-Javadoc)
